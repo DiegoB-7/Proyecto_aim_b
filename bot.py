@@ -22,6 +22,7 @@ def run():
 	
 	f = open('scores.txt', 'r+')
 	scores = [1000,2000,3000,4000,5000,6000]
+	actividad = ['Multishot','Burstsot','Motionshot']
 	if opcion == 1:
 		
 		tiempo=time.localtime()
