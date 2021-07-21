@@ -23,6 +23,7 @@ def run():
 	f = open('scores.txt', 'r+')
 	scores = [1000,2000,3000,4000,5000,6000]
 	actividad = ['Multishot','Burstsot','Motionshot']
+
 	if opcion == 1:
 		
 		tiempo=time.localtime()
@@ -37,13 +38,14 @@ def run():
 
 	elif opcion == 2:
 		for lineas in f:
-			print(lineas)
+			print(Fore.YELLOW + lineas)
 					
 	elif opcion == 3:
 		print(Fore.GREEN + """
 			Este es un programa el cual sirve para dejar de lado el tipico excel e ir subiendo los scores de tus rutinas
 			ya que facilita al jugador que sus scores esten mas facil de acceder a ellos
 			""")
+
 	elif opcion == 4:
 		print(Fore.BLUE + 'Que tengas un gran dia!')
 		sleep(2)
