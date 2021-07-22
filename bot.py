@@ -13,11 +13,6 @@ from PIL import *
 def run():
 	#Este es un programa que se encarga de registrar las puntuaciones de una rutina de aim
 
-	def remover_asterisco(puntuacion_copia):
-		simbolo='*'
-		for caracter in range(len(simbolo)):
-			resultado = caracter.replace(caracters[simbolo],'')
-			return resultado
 
 	print(Fore.BLUE + """
 
@@ -37,7 +32,7 @@ def run():
 
 		img = cv2.imread('imgs/captura.png')
 		x_puntuacion=1600
-		w_puntuacion=800
+		w_puntuacion=210
 		y_puntuacion=130
 		h_puntuacion=100
 
@@ -53,27 +48,25 @@ def run():
 
 		cv2.imwrite('imgs/captura_nueva_puntuacion.png', img_recortada_puntuacion)
 		cv2.imwrite('imgs/captura_nueva_actividad.png', img_recortada_actividad)
-		cv2.imshow('Cropped image',img_recortada_actividad)
+		cv2.imshow('Cropped image',img_recortada_puntuacion)
 		cv2.waitKey(0)
-		cv2.destroyAllWindows()
-
-		print(pytesseract.image_to_string(Image.open('imgs/captura_nueva_puntuacion.png')))
+		
 		puntuacion_capturada = [] 
 		puntuacion_capturada.append(pytesseract.image_to_string(Image.open('imgs/captura_nueva_puntuacion.png')))
-
 		actividad = []
-		actividad.append(pytesseract.image_to_string(Image.open('imgs/captura_nueva_actividad.png'),lang='eng',config='--psm 8'))
-		print(actividad.append(pytesseract.image_to_string(Image.open('imgs/captura_nueva_actividad.png'))))
-	
+		actividad.append(pytesseract.image_to_string(Image.open('imgs/captura_nueva_actividad.png'),lang='eng'))
 		
+
+		print(f'Actividad: {actividad[0]}\nScore: {puntuacion_capturada[0]}')
+
 		tiempo=time.localtime()
 		fecha=f'{tiempo[2]}/{tiempo[1]}/{tiempo[0]} - {tiempo[3]}:{tiempo[4]}:{tiempo[5]}'
 		#time.struct_time(tm_year=2000, tm_mon=11, tm_mday=30, tm_hour=0, tm_min=0,tm_sec=0, tm_wday=3, tm_yday=335, tm_isdst=-1)
-                 
+        
 		for score in puntuacion_capturada: 
 			scores_convertido=str(score)
 			texto_a_imprimir=f'{scores_convertido} {fecha} \n'
-			f.write(f'{texto_a_imprimir}\n')
+			f.write(f'{fecha}\nActividad: {actividad[0]}\nScore: {puntuacion_capturada[0]}')
 
 		print(Fore.GREEN + 'Entrenamiento completado \nQue tengas un gran dia!')
 		
