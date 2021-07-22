@@ -94,10 +94,11 @@ def run():
 			
 			if key == 'f':
 				obtencion_datos(f)
+			
 			i += 1	
-			#sleep(5)
-
-		print(Fore.GREEN + 'Entrenamiento completado \nQue tengas un gran dia!')
+			
+			print(Fore.GREEN + 'Entrenamiento completado \nQue tengas un gran dia!')
+			
 
 	elif opcion == 2:
 		for lineas in f:
