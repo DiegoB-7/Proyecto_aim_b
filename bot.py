@@ -30,14 +30,14 @@ def run():
 
 	if opcion == 1:
 
-		img = cv2.imread('imgs/captura.png')
+		img = cv2.imread('imgs/captura1.png')
 		x_puntuacion=1600
 		w_puntuacion=210
 		y_puntuacion=130
 		h_puntuacion=100
 
 		x_actividad=300
-		w_actividad=450
+		w_actividad=500
 		y_actividad=10
 		h_actividad=100
 
@@ -49,6 +49,7 @@ def run():
 		cv2.imwrite('imgs/captura_nueva_puntuacion.png', img_recortada_puntuacion)
 		cv2.imwrite('imgs/captura_nueva_actividad.png', img_recortada_actividad)
 		cv2.imshow('Cropped image',img_recortada_puntuacion)
+		cv2.imshow('Cropped image',img_recortada_actividad)
 		cv2.waitKey(0)
 		
 		puntuacion_capturada = [] 
