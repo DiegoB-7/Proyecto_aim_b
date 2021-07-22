@@ -9,26 +9,20 @@ from colorama import Fore, Style, Back
 from time import sleep
 from PIL import *
 from tqdm import tqdm
-from getkey import getkey
+from getkey import getkey, keys
 
-	
-def inicio_rutina():
-	while True:
-		key = getkey()
-		print('Presiona la tecla f para contar el score')
-		if key == 'f':
-			print('Su entrenamiento esta apunto de comenzar')
-			break	
+
+
 
 def obtencion_datos(f_copia_recibida):
-
+	
 	f=f_copia_recibida
 	myScreenshot = pyautogui.screenshot()
 
 	myScreenshot.save(r'/home/diego/Documentos/Proyecto_aim_b/imgs/captura.png')
 
 	img = cv2.imread('imgs/captura.png')
-			
+					
 	#Size de img_recortada_puntuacion
 	x_puntuacion=1600
 	w_puntuacion=210
@@ -43,35 +37,34 @@ def obtencion_datos(f_copia_recibida):
 
 	img_recortada_puntuacion =  img[y_puntuacion:y_puntuacion+h_puntuacion, x_puntuacion:x_puntuacion+w_puntuacion]
 	img_recortada_actividad = img[y_actividad:y_actividad+h_actividad, x_actividad:x_actividad+w_actividad]
-				
+						
 	#Se guarda las imagenes en la carpeta img
 	cv2.imwrite('imgs/captura_nueva_puntuacion.png', img_recortada_puntuacion)
 	cv2.imwrite('imgs/captura_nueva_actividad.png', img_recortada_actividad)
 	#cv2.imshow('Cropped image',img_recortada_puntuacion)
 	#cv2.imshow('Cropped image',img_recortada_actividad)
-	cv2.waitKey(0)
-				
+	#cv2.waitKey(0)
+						
 	#Almacenamiento de lo que la libereria pytesseract lea de las imagenes
 	puntuacion_capturada = [] 
 	puntuacion_capturada.append(pytesseract.image_to_string(Image.open('imgs/captura_nueva_puntuacion.png')))
 	actividad = []
 	actividad.append(pytesseract.image_to_string(Image.open('imgs/captura_nueva_actividad.png'),lang='eng+spa'))
-				
-
+						
 	#print(f'Actividad: {actividad[0]}\nScore: {puntuacion_capturada[0]}')
 
 	#Aqui se obtiene la fecha local 
 	tiempo=time.localtime()
 	fecha=f'{tiempo[2]}/{tiempo[1]}/{tiempo[0]} - {tiempo[3]}:{tiempo[4]}:{tiempo[5]}'
 	#time.struct_time(tm_year=2000, tm_mon=11, tm_mday=30, tm_hour=0, tm_min=0,tm_sec=0, tm_wday=3, tm_yday=335, tm_isdst=-1)
-		        
+				        
 
 	for score in puntuacion_capturada: 
 		scores_convertido=str(score)
-		f.write(f'{fecha}\nActividad: {actividad[0]}\nScore: {puntuacion_capturada[0]}')
+		f.write(f'{fecha}\nActividad: {actividad[0]}\nScore: {puntuacion_capturada[0]}\n')
 
-	print(Fore.GREEN + 'Entrenamiento completado \nQue tengas un gran dia!')
-
+		
+	
 def run():
 	#Este es un programa que se encarga de registrar las puntuaciones de una rutina de aim
 	print(Fore.BLUE + """
@@ -91,17 +84,20 @@ def run():
 
 	if opcion == 1:
 
-		duracion = int(input(Fore.BLUE + 'Escribe la duracion en minutos de tu rutina:' + Style.NORMAL))
+		duracion = int(input(Fore.BLUE + 'Escribe la cantidad de ejercicios de tu rutina:' + Style.NORMAL))
 		
-		i=0
-		while(i < duracion):
-			#inicio_rutina()
+		i=1
+		while(i <= duracion):
 			
-			obtencion_datos(f)
-			print(i)
-			i += 1
+			print(f'Presiona la tecla f para capturar el score ({i}/{duracion})')
+			key = getkey()
+			
+			if key == 'f':
+				obtencion_datos(f)
+			i += 1	
 			#sleep(5)
-			
+
+		print(Fore.GREEN + 'Entrenamiento completado \nQue tengas un gran dia!')
 
 	elif opcion == 2:
 		for lineas in f:
