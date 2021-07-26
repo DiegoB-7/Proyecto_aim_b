@@ -17,9 +17,9 @@ from getkey import getkey, keys
 def obtencion_datos(f_copia_recibida):
 	
 	f=f_copia_recibida
-	myScreenshot = pyautogui.screenshot()
+	#myScreenshot = pyautogui.screenshot()
 
-	myScreenshot.save(r'/home/diego/Documentos/Proyecto_aim_b/imgs/captura.png')
+	#myScreenshot.save(r'/home/diego/Documentos/Proyecto_aim_b/imgs/captura.png')
 
 	img = cv2.imread('imgs/captura.png')
 					
@@ -97,7 +97,7 @@ def run():
 			
 			i += 1	
 			
-			print(Fore.GREEN + 'Entrenamiento completado \nQue tengas un gran dia!')
+		print(Fore.GREEN + 'Entrenamiento completado \nQue tengas un gran dia!')
 			
 
 	elif opcion == 2:
